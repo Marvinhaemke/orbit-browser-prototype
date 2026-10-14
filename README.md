@@ -6,6 +6,10 @@ Real websites open in iframe tabs. The prototype uses the host browser's actual 
 
 ## Run locally
 
+**Hosting:** the repository is also prepared for Vercel. Import it with the
+**Other** framework preset and repository root; the committed configuration
+supplies the build and output settings. [Deployment guide](docs/vercel-deployment.md).
+
 Requires **Python 3.10+**. No Firefox checkout, MozillaBuild, npm install, or build step is needed.
 
 ```powershell
@@ -56,6 +60,10 @@ python -m unittest discover -s tests -p test_prototype_server.py -v
 ```
 
 [Full workflow and prototype boundaries](docs/focus-prototype.md).
+
+To check the hosted build locally, run `npm run build`, `npm test`,
+`npm run test:python`, then `npm run preview`. Python is used to generate the
+shared canvas assets and run the embedding check; no external packages are needed.
 
 ## Shared Orbit code
 

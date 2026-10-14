@@ -3,6 +3,7 @@ import {HOME, CANVAS, STORAGE_KEY, newTab, navigateTab, travelTab, closeTab, res
 import {DESIGNS, MENU_STYLES, prototypePreferences, needsGestureLayer} from "./preferences.mjs";
 import {observeFrame} from "./frame-events.mjs";
 import {createCanvasHost} from "./canvas-host.mjs";
+import {embeddingPolicy} from "./embedding-policy.mjs";
 
 const $ = id => document.getElementById(id);
 const element = (tag, cls, text) => {
@@ -218,15 +219,9 @@ async function renderWebsite(tab, record) {
     page.append(inner); record.node.replaceChildren(page); updateGestureLayer();
   };
   record.unavailable = unavailable;
-  let policy;
-  if (new URL(url).origin !== location.origin) {
-    try {
-      const response = await fetch(`/api/frame-policy?url=${encodeURIComponent(url)}`);
-      if (response.ok) policy = await response.json();
-    } catch { /* The live frame remains usable if preflight is unavailable. */ }
-  }
+  const policy = await embeddingPolicy(url);
   if (record.url !== url || !session.tabs.includes(tab)) return;
-  if (policy?.blocked) { unavailable("does not allow this page to be embedded."); return; }
+  if (policy?.blocked) { unavailable(policy.reason === "mixed-content" ? "requires an HTTPS address on this hosted prototype." : "does not allow this page to be embedded."); return; }
   const iframe = element("iframe", "web-frame");
   iframe.title = tab.title; iframe.referrerPolicy = "strict-origin-when-cross-origin";
   iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-forms allow-modals allow-downloads");
@@ -514,5 +509,7 @@ canvasHost = createCanvasHost({
 });
 window.OrbitPrototype = canvasHost;
 render();
-const updates = new EventSource("/events");
-updates.addEventListener("change", () => { save(); location.reload(); });
+if (document.documentElement.dataset.liveReload === "true") {
+  const updates = new EventSource("/events");
+  updates.addEventListener("change", () => { save(); location.reload(); });
+}

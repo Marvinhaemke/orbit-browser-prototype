@@ -1,0 +1,13 @@
+{
+  "name": "orbit-browser-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Orbit focus-mode and spatial-canvas UX prototype",
+  "engines": {"node": "22.x"},
+  "scripts": {
+    "build": "node scripts/python.mjs scripts/build_static.py",
+    "preview": "node scripts/python.mjs scripts/preview_static.py",
+    "test": "node --test tests/prototype-model.test.mjs tests/prototype-interactions.test.mjs tests/radial-view.test.mjs tests/embedding-policy.test.mjs",
+    "test:python": "node scripts/python.mjs -m unittest discover -s tests -p test_*.py -v"
+  }
+}

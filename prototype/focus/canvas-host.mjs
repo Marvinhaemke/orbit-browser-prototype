@@ -1,5 +1,6 @@
 import {validateBoard} from "/native/board-model.mjs";
 import {HOME, CANVAS, STORAGE_KEY} from "./model.mjs";
+import {embeddingPolicy} from "./embedding-policy.mjs";
 
 export function createCanvasHost({read, write, tabs, open, select, returnToPage, menu, keyboard, dismiss, onBoard}) {
   const key = `${STORAGE_KEY}.canvas`;
@@ -29,8 +30,7 @@ export function createCanvasHost({read, write, tabs, open, select, returnToPage,
     title.textContent = new URL(record.url).hostname; close.textContent = "×"; close.setAttribute("aria-label", "Close canvas preview");
     close.addEventListener("click", () => panel.remove()); header.append(title, close); panel.append(header);
     closePeek(); document.body.append(panel);
-    let policy;
-    try { policy = await (await fetch(`/api/frame-policy?url=${encodeURIComponent(record.url)}`)).json(); } catch { /* The browser still enforces embedding policy. */ }
+    const policy = await embeddingPolicy(record.url);
     if (!panel.isConnected) return;
     if (policy?.blocked) { const message = document.createElement("p"); message.textContent = "This site is unavailable in the prototype."; message.style.padding = "24px"; panel.append(message); return; }
     const iframe = document.createElement("iframe"); iframe.title = `Preview ${title.textContent}`;
