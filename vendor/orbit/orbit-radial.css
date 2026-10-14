@@ -1,0 +1,340 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+
+/* Annular slices receive input; circular surfaces only show selection. */
+.orbit-radial-root {
+  --orbit-surface-a: #263249;
+  --orbit-surface-b: #202a3e;
+  --orbit-sector-a: #2b374e;
+  --orbit-sector-b: #232d42;
+  --orbit-active-a: #304a54;
+  --orbit-active-b: #363e61;
+  --orbit-label: #e9f0f8;
+  --orbit-icon: #91e8df;
+  --orbit-line: #b8cbea24;
+  --orbit-edge: #b8d6ff12;
+  --orbit-shadow: #080e1c8a;
+  --orbit-deep-shadow: #050b1780;
+  --orbit-shine: #b8d6ff12;
+  --orbit-center-a: #29404c;
+  --orbit-center-b: #303650;
+  --orbit-caption: #a8b7cb;
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  pointer-events: none;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--orbit-label);
+  color-scheme: dark;
+  isolation: isolate;
+}
+.orbit-radial-menu {
+  position: absolute;
+  pointer-events: none;
+  outline: none;
+  background: none;
+  opacity: 0;
+  transform: scale(.94);
+  transform-origin: center;
+  transition: opacity 180ms ease, transform 300ms cubic-bezier(.18,.9,.25,1.15);
+  will-change: transform, opacity;
+}
+.orbit-radial-visible .orbit-radial-menu { opacity: 1; transform: scale(1); }
+.orbit-radial-leaving .orbit-radial-menu { opacity: 0; transform: scale(.97); }
+.orbit-radial-morph .orbit-radial-menu { animation: orbit-radial-morph 180ms cubic-bezier(.2,.85,.2,1.08); }
+.orbit-radial-held, .orbit-radial-held * { pointer-events: none !important; }
+.orbit-radial-svg {
+  display: block;
+  overflow: visible;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  pointer-events: none;
+}
+.orbit-radial-backing, .orbit-radial-backing * { pointer-events: none; }
+.orbit-radial-disc {
+  fill: var(--orbit-gradient-surface, url(#orbit-gradient-surface));
+  stroke: var(--orbit-shine);
+  stroke-width: 1;
+  filter: drop-shadow(10px 12px 22px var(--orbit-deep-shadow))
+    drop-shadow(-4px -4px 8px var(--orbit-shine));
+}
+.orbit-radial-fan-surface {
+  fill: none;
+  stroke: var(--orbit-gradient-surface, url(#orbit-gradient-surface));
+  filter: drop-shadow(8px 10px 18px var(--orbit-deep-shadow))
+    drop-shadow(-3px -3px 6px var(--orbit-shine));
+}
+.orbit-radial-backing-fan {
+  transform-box: view-box;
+  animation: orbit-radial-fan-in 260ms cubic-bezier(.18,.9,.25,1.15) both;
+}
+.orbit-radial-ring {
+  transform-origin: center;
+  transform-box: view-box;
+  animation: orbit-radial-ring-in 260ms cubic-bezier(.18,.9,.25,1.15) both;
+}
+.orbit-radial-fan { animation-name: orbit-radial-fan-in; }
+.orbit-radial-stable, .orbit-radial-stable .orbit-radial-sector { animation: none !important; }
+.orbit-radial-sector {
+  cursor: pointer;
+  pointer-events: none;
+  opacity: 1;
+  animation: orbit-radial-sector-in 160ms ease both;
+  animation-delay: var(--orbit-stagger, 0ms);
+}
+.orbit-radial-sector-shape {
+  pointer-events: none;
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 1;
+  filter: none;
+  transition: fill 130ms ease, stroke 150ms ease, filter 180ms ease;
+}
+.orbit-radial-sector-hit { fill: transparent; stroke: none; pointer-events: all; }
+.orbit-radial-sector.orbit-radial-active .orbit-radial-sector-shape,
+.orbit-radial-sector.orbit-radial-parent .orbit-radial-sector-shape {
+  fill: var(--orbit-gradient-active, url(#orbit-gradient-active));
+  stroke: var(--orbit-shine);
+}
+.orbit-radial-sector.orbit-radial-parent:not(.orbit-radial-active) { opacity: .92; }
+.orbit-radial-sector.orbit-radial-active .orbit-radial-sector-shape {
+  filter: drop-shadow(2px 3px 6px var(--orbit-shadow))
+    drop-shadow(-1px -1px 3px var(--orbit-shine));
+}
+.orbit-radial-label {
+  font-size: 10.5px;
+  font-weight: 400;
+  fill: var(--orbit-label);
+  letter-spacing: .04px;
+  pointer-events: none;
+}
+.orbit-radial-icon {
+  font-size: 17px;
+  font-weight: 550;
+  fill: var(--orbit-icon);
+  pointer-events: none;
+}
+.orbit-radial-icon-image { pointer-events: none; }
+.orbit-radial-tab-close { cursor: pointer; pointer-events: none; }
+.orbit-radial-tab-close-surface {
+  pointer-events: visiblePainted;
+  fill: var(--orbit-surface-b);
+  stroke: var(--orbit-line);
+  stroke-width: .7;
+  transition: fill 130ms ease, stroke 130ms ease;
+}
+.orbit-radial-tab-close-mark {
+  fill: none;
+  stroke: var(--orbit-label);
+  pointer-events: none;
+  opacity: .8;
+}
+.orbit-radial-tab-close.orbit-radial-active .orbit-radial-tab-close-surface {
+  fill: light-dark(#f7d7dd, #643741);
+  stroke: light-dark(#b13d56, #efabb9);
+}
+.orbit-radial-tab-close.orbit-radial-active .orbit-radial-tab-close-mark {
+  stroke: light-dark(#8b2340, #ffe3e9);
+  opacity: 1;
+}
+.orbit-radial-vector-icon { color: var(--orbit-icon); stroke: currentColor; pointer-events: none; }
+.orbit-radial-active .orbit-radial-vector-icon, .orbit-radial-parent .orbit-radial-vector-icon { color: var(--orbit-icon); }
+.orbit-radial-active .orbit-radial-icon,
+.orbit-radial-active .orbit-radial-label,
+.orbit-radial-parent .orbit-radial-label,
+.orbit-radial-parent .orbit-radial-icon { fill: var(--orbit-icon); }
+.orbit-radial-disabled { opacity: .42; cursor: default; }
+.orbit-radial-checked .orbit-radial-label { font-weight: 500; }
+.orbit-radial-submenu-mark { font-size: 22px; fill: var(--orbit-icon); pointer-events: none; }
+.orbit-radial-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--orbit-center-size);
+  height: var(--orbit-center-size);
+  pointer-events: auto;
+  box-sizing: border-box;
+  border: 1px solid var(--orbit-line);
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orbit-center-a), var(--orbit-center-b));
+  box-shadow: inset 3px 3px 7px var(--orbit-shadow),
+    inset -3px -3px 7px var(--orbit-shine);
+  color: var(--orbit-icon);
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  transition: background 160ms ease, box-shadow 180ms ease, border-color 150ms ease;
+  outline: none;
+}
+.orbit-radial-center.orbit-radial-active {
+  background: linear-gradient(135deg, var(--orbit-active-a), var(--orbit-active-b));
+  border-color: var(--orbit-shine);
+  box-shadow: inset 2px 3px 7px var(--orbit-shadow),
+    inset -2px -2px 7px var(--orbit-shine), 0 0 12px #70ded312;
+}
+.orbit-radial-center:disabled { opacity: 1; cursor: default; }
+.orbit-radial-center:disabled .orbit-radial-center-icon { opacity: .65; }
+.orbit-radial-center:disabled .orbit-radial-center-label { opacity: .75; }
+.orbit-radial-center-icon { font-size: 26px; line-height: 29px; color: var(--orbit-icon); font-weight: 400; }
+.orbit-radial-center-icon.orbit-radial-vector-icon { width: 26px; height: 26px; flex-shrink: 0; }
+.orbit-radial-center-label {
+  display: none !important;
+  font-size: 10.5px;
+  line-height: 1.25;
+  font-weight: 600;
+  text-align: center;
+  max-width: 80px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.orbit-radial-caption {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(var(--orbit-center-size) / 2 - 13px));
+  font-size: 6.5px;
+  letter-spacing: .8px;
+  line-height: 1;
+  color: var(--orbit-caption);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.orbit-radial-command-label {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--orbit-surface-b) 94%, transparent);
+  box-shadow: none;
+  color: var(--orbit-label);
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 400;
+  text-align: center;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.orbit-radial-command-label[hidden] { display: none; }
+.orbit-radial-visible .orbit-radial-command-label { opacity: 1; }
+.orbit-radial-menu:focus-visible .orbit-radial-center {
+  outline: 2px solid #70ded38c;
+  outline-offset: 3px;
+}
+/* The focus menu unfolds from the real viewport corner. Its complete first
+   level occupies two readable arcs within a quarter surface; native page and
+   tab wheels keep their ordinary centered geometry. */
+.orbit-radial-root[data-layout="corner"] .orbit-radial-menu {
+  transform-origin: 0 0;
+  transition: opacity 150ms ease, transform 250ms cubic-bezier(.18,.85,.25,1);
+}
+.orbit-radial-root[data-layout="corner"] .orbit-radial-ring { transform-origin: 0 0; }
+.orbit-radial-root[data-layout="corner"] .orbit-radial-disc {
+  filter: drop-shadow(5px 8px 14px var(--orbit-deep-shadow));
+}
+.orbit-radial-root[data-layout="corner"] .orbit-radial-label { font-size: 10.5px; }
+.orbit-radial-root[data-layout="corner"] .orbit-radial-command-label {
+  padding: 9px 12px;
+  border-radius: 14px;
+  font-size: 11px;
+}
+.orbit-radial-root[data-layout="corner"] .orbit-radial-center {
+  left: 0;
+  top: 0;
+  transform: none;
+  border-radius: 0 0 100% 0;
+  padding: 10px 22px 22px 10px;
+  gap: 3px;
+  border-top: 0;
+  border-left: 0;
+}
+.orbit-radial-root[data-layout="corner"] .orbit-radial-center-label {
+  font-size: 10px;
+  max-width: 64px;
+  white-space: nowrap;
+}
+.orbit-radial-root[data-layout="corner"] .orbit-radial-caption {
+  left: 12px;
+  top: 10px;
+  transform: none;
+  font-size: 6px;
+  letter-spacing: .6px;
+}
+@keyframes orbit-radial-sector-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes orbit-radial-ring-in {
+  from { opacity: 0; transform: scale(.965); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes orbit-radial-fan-in {
+  from { opacity: 0; transform: scale(.93); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes orbit-radial-morph {
+  from { filter: brightness(1.04); transform: scale(.98); }
+  to { filter: brightness(1); transform: scale(1); }
+}
+@media (prefers-color-scheme: light) {
+  .orbit-radial-root {
+    --orbit-surface-a: #f5f8fc;
+    --orbit-surface-b: #edf2f8;
+    --orbit-sector-a: #f8fbff;
+    --orbit-sector-b: #e7edf5;
+    --orbit-active-a: #d6eceb;
+    --orbit-active-b: #e6e9f5;
+    --orbit-label: #253449;
+    --orbit-icon: #245d70;
+    --orbit-line: #bfccdb7a;
+    --orbit-edge: #ffffffdb;
+    --orbit-shadow: #a4b3c857;
+    --orbit-deep-shadow: #94a5bb4d;
+    --orbit-shine: #ffffffdb;
+    --orbit-center-a: #d9eeed;
+    --orbit-center-b: #e6e9f5;
+    --orbit-caption: #586b80;
+    color-scheme: light;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-radial-root * { animation: none !important; transition: none !important; }
+}
+@media (forced-colors: active) {
+  .orbit-radial-tab-close-surface { fill: ButtonFace !important; stroke: ButtonText !important; }
+  .orbit-radial-tab-close-mark { stroke: ButtonText !important; }
+  .orbit-radial-tab-close.orbit-radial-active .orbit-radial-tab-close-surface { fill: Highlight !important; stroke: Highlight !important; }
+  .orbit-radial-tab-close.orbit-radial-active .orbit-radial-tab-close-mark { stroke: HighlightText !important; }
+  .orbit-radial-disc { fill: Canvas !important; stroke: ButtonText !important; filter: none !important; }
+  .orbit-radial-fan-surface { stroke: Canvas !important; filter: none !important; }
+  .orbit-radial-sector-shape { fill: Canvas !important; stroke: ButtonText !important; filter: none !important; }
+  .orbit-radial-icon, .orbit-radial-label { fill: ButtonText !important; }
+  .orbit-radial-vector-icon { color: ButtonText !important; }
+  .orbit-radial-active .orbit-radial-sector-shape,
+  .orbit-radial-parent .orbit-radial-sector-shape { fill: Highlight !important; stroke: Highlight !important; }
+  .orbit-radial-active .orbit-radial-icon,
+  .orbit-radial-active .orbit-radial-label,
+  .orbit-radial-parent .orbit-radial-label,
+  .orbit-radial-parent .orbit-radial-icon { fill: HighlightText !important; }
+  .orbit-radial-active .orbit-radial-vector-icon,
+  .orbit-radial-parent .orbit-radial-vector-icon { color: HighlightText !important; }
+  .orbit-radial-center { background: ButtonFace; color: ButtonText; border-color: ButtonText; box-shadow: none; }
+  .orbit-radial-center.orbit-radial-active { background: Highlight; color: HighlightText; box-shadow: none; }
+  .orbit-radial-center-icon { color: ButtonText; }
+  .orbit-radial-center.orbit-radial-active .orbit-radial-center-icon { color: HighlightText; }
+  .orbit-radial-submenu-mark { fill: ButtonText; }
+  .orbit-radial-caption { color: ButtonText; }
+  .orbit-radial-command-label { background: Canvas; color: CanvasText; border-color: ButtonText; box-shadow: none; }
+  .orbit-radial-menu:focus-visible .orbit-radial-center { outline-color: Highlight; }
+}

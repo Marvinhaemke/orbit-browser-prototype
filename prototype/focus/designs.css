@@ -1,0 +1,83 @@
+.design-picker { border: 0; padding: 0; margin: 27px 0 8px; }
+.design-picker legend { width: 100%; font-size: 12px; margin-bottom: 12px; }
+.design-picker legend span { float: right; color: var(--muted); font-size: 10px; }
+#design-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.design-option { padding: 5px 5px 10px; border: 1px solid var(--line); border-radius: 13px; text-align: left; }
+.design-option[aria-pressed="true"] { border-color: var(--accent); background: var(--wash); }
+.design-option b { display: block; font-size: 11px; font-weight: 500; padding: 8px 5px 0; }
+.design-swatch { display: block; height: 58px; position: relative; overflow: hidden; background: #192538; border-radius: 9px; }
+.swatch-island { position: absolute; width: 39px; height: 8px; border-radius: 5px; top: 7px; left: calc(50% - 19px); background: #91e8df38; border: 1px solid #91e8df45; }
+.swatch-orbit { position: absolute; top: 0; left: 0; width: 28px; height: 28px; border-radius: 0 0 100% 0; background: #3b5369; }
+.swatch-lines { position: absolute; left: 28px; top: 29px; width: 45px; height: 3px; background: #91e8df; box-shadow: 0 7px 0 #91e8df22, 0 14px 0 #91e8df22; }
+[data-design="glass"] .design-swatch { background: linear-gradient(130deg, #505287, #16213c); }
+[data-design="glass"] .swatch-orbit { background: #bcbbf35c; border: 1px solid #fff4; }
+[data-design="glass"] .swatch-island { background: #ffffff33; border-color: #fff5; }
+[data-design="glass"] .swatch-lines { background: #d3c6ff; box-shadow: 0 7px 0 #d3c6ff33, 0 14px 0 #d3c6ff33; }
+[data-design="paper"] .design-swatch { background: #f5efe3; border-radius: 2px; }
+[data-design="paper"] .swatch-orbit { background: #e5d9c7; }
+[data-design="paper"] .swatch-island { background: #faf6ed; border-radius: 2px; border-color: #9c724866; }
+[data-design="paper"] .swatch-lines { background: #9d563e; box-shadow: 0 7px 0 #9d563e28, 0 14px 0 #9d563e28; }
+[data-design="studio"] .design-swatch { background: #12191a; border-radius: 2px; }
+[data-design="studio"] .swatch-orbit { background: transparent; border: 1px solid #87e0b8; }
+[data-design="studio"] .swatch-island { background: transparent; border-radius: 2px; border-color: #87e0b855; }
+[data-design="studio"] .swatch-lines { background: #87e0b8; box-shadow: 0 7px 0 #87e0b828, 0 14px 0 #87e0b828; }
+.welcome-design-label { display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 11px; color: var(--muted); margin: 10px 0 5px; }
+.address-actions .mode-button { font-size: 10px; padding: 6px 9px; color: var(--accent); }
+:root[data-interaction-mode="browse"] .address-actions .mode-button { color: var(--muted); }
+
+:root[data-design="glass"] { --bg: #14182b; --surface: #303656; --raised: #3b4263; --ink: #f0efff; --muted: #b0b6d0; --accent: #c4b8ff; --line: #dedcff2c; --wash: #b5a5ff1b; --shadow: #080b2270; }
+:root[data-design="glass"][data-theme="light"] { --bg: #eef0fa; --surface: #f6f5ff; --raised: #fff; --ink: #323953; --muted: #747a99; --accent: #7157b3; --line: #7c79a52d; --wash: #9c84da18; --shadow: #6e6eaf27; }
+:root[data-design="glass"] .workspace { background: radial-gradient(ellipse at 20% 0%, #8970cc25, transparent 50%), radial-gradient(ellipse at 100% 60%, #537ab328, transparent 50%), var(--bg); }
+:root[data-design="glass"] .island, :root[data-design="glass"] .suggestions { background: color-mix(in srgb, var(--surface) 72%, transparent); backdrop-filter: blur(28px) saturate(1.35); box-shadow: 0 8px 36px var(--shadow), inset 0 1px 0 #ffffff28; border-color: color-mix(in srgb, var(--ink) 20%, transparent); }
+:root[data-design="glass"] .workspace-frame { background: color-mix(in srgb, var(--surface) 45%, transparent); backdrop-filter: blur(12px); box-shadow: inset 0 1px 0 #ffffff16; border-radius: 30px; }
+:root[data-design="glass"] h1 { font-weight: 300; letter-spacing: -3.5px; }
+:root[data-design="glass"] .workspace-search { box-shadow: 0 6px 30px var(--shadow), inset 0 1px 0 #ffffff1a; background: color-mix(in srgb, var(--surface) 60%, transparent); border-radius: 26px; }
+:root[data-design="glass"] .primary-button { border-radius: 30px; background: color-mix(in srgb, var(--raised) 75%, transparent); }
+:root[data-design="glass"] .orbit-radial-root { --orbit-surface-a: color-mix(in srgb, var(--raised) 90%, transparent); --orbit-surface-b: color-mix(in srgb, var(--surface) 82%, transparent); --orbit-center-a: var(--raised); --orbit-center-b: var(--surface); --orbit-active-a: color-mix(in srgb, var(--accent) 24%, var(--surface)); --orbit-active-b: var(--raised); }
+:root[data-design="glass"] .orbit-radial-disc { stroke: color-mix(in srgb, var(--accent) 30%, transparent); filter: drop-shadow(0 8px 20px var(--shadow)); }
+:root[data-design="glass"] .orbit-radial-center { box-shadow: inset 0 1px 0 #ffffff22, 0 0 20px var(--wash); }
+:root[data-design="glass"] .orbit-radial-active .orbit-radial-sector-shape { stroke: color-mix(in srgb, var(--accent) 55%, transparent); }
+
+:root[data-design="paper"] { --bg: #26231f; --surface: #332f28; --raised: #403a30; --ink: #ede3d2; --muted: #b3a590; --accent: #e2ad78; --line: #d1bfa133; --wash: #e2ad7812; --shadow: #100e0a40; }
+:root[data-design="paper"][data-theme="light"] { --bg: #f3efe5; --surface: #f9f5ec; --raised: #fffbf3; --ink: #383127; --muted: #817462; --accent: #9d563e; --line: #9d896635; --wash: #9d563e0c; --shadow: #9a86641c; }
+:root[data-design="paper"] h1, :root[data-design="paper"] dialog h2 { font-family: Georgia, "Times New Roman", serif; letter-spacing: -2px; font-weight: 400; }
+:root[data-design="paper"] .workspace::before { background-image: none; }
+:root[data-design="paper"] .workspace { background: var(--bg); }
+:root[data-design="paper"] .island, :root[data-design="paper"] .suggestions { border-radius: 7px; background: var(--surface); backdrop-filter: none; box-shadow: 3px 4px 0 var(--shadow); }
+:root[data-design="paper"] .workspace-frame { background: transparent; border-width: 1px 0 0; border-radius: 0; padding: 24px 0; }
+:root[data-design="paper"] .frame-heading h2 { font-family: Georgia, serif; font-size: 20px; }
+:root[data-design="paper"] .workspace-search { box-shadow: none; border-radius: 6px; border-color: var(--line); }
+:root[data-design="paper"] .primary-button, :root[data-design="paper"] select { box-shadow: none; border-radius: 5px; }
+:root[data-design="paper"] .site-card-icon { border-radius: 5px; border: 1px solid var(--line); background: transparent; }
+:root[data-design="paper"] dialog { border-radius: 10px; box-shadow: 8px 9px 0 var(--shadow); }
+:root[data-design="paper"] .orbit-radial-root { font-family: Georgia, serif; --orbit-center-a: var(--surface); --orbit-center-b: var(--surface); --orbit-active-a: var(--raised); --orbit-active-b: var(--raised); }
+:root[data-design="paper"] .orbit-radial-disc { fill: var(--surface); stroke: var(--line); filter: none; }
+:root[data-design="paper"] .orbit-radial-fan-surface { stroke: var(--surface); filter: none; }
+:root[data-design="paper"] .orbit-radial-center { border-color: var(--line); box-shadow: none; }
+:root[data-design="paper"] .orbit-radial-label { font-size: 11px; font-weight: 400; }
+:root[data-design="paper"] .orbit-radial-active .orbit-radial-sector-shape { stroke: var(--line); filter: none; }
+:root[data-design="paper"] .orbit-radial-command-label { border-radius: 4px; border: 1px solid var(--line); font-family: Georgia, serif; }
+
+:root[data-design="studio"] { --bg: #11191a; --surface: #192426; --raised: #243234; --ink: #dcebe5; --muted: #8daba2; --accent: #87e0b8; --line: #87e0b82d; --wash: #87e0b80b; --shadow: transparent; font-family: "Cascadia Code", Consolas, monospace; }
+:root[data-design="studio"][data-theme="light"] { --bg: #edf2ee; --surface: #f6f9f6; --raised: #fff; --ink: #243931; --muted: #677d73; --accent: #2b785b; --line: #2b785b38; --wash: #2b785b0d; }
+:root[data-design="studio"] .workspace { padding-top: 75px; background: var(--bg); }
+:root[data-design="studio"] .workspace-header { padding-bottom: 22px; border-bottom: 1px solid var(--line); margin-bottom: 38px; }
+:root[data-design="studio"] h1 { font-size: clamp(36px, 4vw, 54px); letter-spacing: -2px; font-weight: 400; line-height: 1.18; }
+:root[data-design="studio"] .eyebrow { font-size: 9px; }
+:root[data-design="studio"] .workspace-intro { font-size: 12px; }
+:root[data-design="studio"] .workspace-frame { border-radius: 3px; padding: 20px; background: transparent; }
+:root[data-design="studio"] .site-card-icon, :root[data-design="studio"] .site-card { border-radius: 3px; }
+:root[data-design="studio"] .island, :root[data-design="studio"] .suggestions, :root[data-design="studio"] .workspace-search, :root[data-design="studio"] .primary-button, :root[data-design="studio"] dialog, :root[data-design="studio"] select { border-radius: 4px; box-shadow: none; backdrop-filter: none; background: var(--surface); }
+:root[data-design="studio"] .address-island { top: 8px; min-height: 39px; padding: 3px 5px; }
+:root[data-design="studio"] .window-island { top: 8px; right: 8px; }
+:root[data-design="studio"] .window-island button { height: 29px; width: 32px; }
+:root[data-design="studio"] .address-actions button, :root[data-design="studio"] .expanded-address button, :root[data-design="studio"] .window-island button { border-radius: 3px; }
+:root[data-design="studio"] .compact-address, :root[data-design="studio"] #address-input { font-size: 11px; }
+:root[data-design="studio"] .orbit-radial-root { font-family: "Cascadia Code", Consolas, monospace; --orbit-center-a: var(--surface); --orbit-center-b: var(--surface); --orbit-active-a: var(--raised); --orbit-active-b: var(--raised); }
+:root[data-design="studio"] .orbit-radial-disc { fill: var(--surface); stroke: var(--line); filter: none; }
+:root[data-design="studio"] .orbit-radial-fan-surface { stroke: var(--surface); filter: none; }
+:root[data-design="studio"] .orbit-radial-sector-hit { stroke: var(--line); stroke-width: .5px; }
+:root[data-design="studio"] .orbit-radial-label { font-size: 9px; letter-spacing: .25px; text-transform: uppercase; }
+:root[data-design="studio"] .orbit-radial-center, :root[data-design="studio"] .orbit-radial-active .orbit-radial-sector-shape { box-shadow: none; filter: none; }
+:root[data-design="studio"] .orbit-radial-command-label { border: 1px solid var(--line); border-radius: 3px; font-size: 10px; }
+@media (max-width: 430px) { #design-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

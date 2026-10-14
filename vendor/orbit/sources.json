@@ -1,0 +1,43 @@
+{
+  "repository": "https://github.com/Marvinhaemke/orbit-browser",
+  "capturedOn": "2026-10-14",
+  "baseRevision": "abf442d4bf7ca3dc64863734468831c2a68293b1",
+  "source": "development working tree",
+  "files": [
+    {
+      "file": "OrbitRadialView.sys.mjs",
+      "sourcePath": "overlay/browser/components/orbit/OrbitRadialView.sys.mjs",
+      "sha256": "b7ae33b606852763858418d9554bd5ecf3cfb3defa1f69ccf262ca22ef4ae9f3"
+    },
+    {
+      "file": "Orbit.sys.mjs",
+      "sourcePath": "overlay/browser/components/orbit/Orbit.sys.mjs",
+      "sha256": "2589b633da79051069f2d5edd3e9ac562db0d332a222a3182200f936be748f5f"
+    },
+    {
+      "file": "orbit.html",
+      "sourcePath": "overlay/browser/base/content/orbit/orbit.html",
+      "sha256": "b58120eba06eddde246676bf59b9dcdf38d4c40a61fec310aee1439aa1085c48"
+    },
+    {
+      "file": "orbit.js",
+      "sourcePath": "overlay/browser/base/content/orbit/orbit.js",
+      "sha256": "def8f7b3efa28e9aeb171c369eece87bf14e96576f3f5dd2c1fad4e4c1a7d888"
+    },
+    {
+      "file": "orbit.css",
+      "sourcePath": "overlay/browser/base/content/orbit/orbit.css",
+      "sha256": "6d5d9c7f4f7c93d10f42d637dec453c2ce36c49149d67eb34ca08f8a05a31d42"
+    },
+    {
+      "file": "orbit-radial.css",
+      "sourcePath": "overlay/browser/base/content/orbit/orbit-radial.css",
+      "sha256": "fa015a3bc07ffc8236290e0e025d6be1ab3c6398457606baec5806c849b88de4"
+    },
+    {
+      "file": "orbit.svg",
+      "sourcePath": "overlay/browser/base/content/orbit/orbit.svg",
+      "sha256": "199f8e9391008a738f9c4cca4e71ddd023e1bedce2a20b688707ea361c852017"
+    }
+  ]
+}

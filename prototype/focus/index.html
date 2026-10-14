@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Orbit · Focus lab</title>
+  <link rel="icon" href="/native/orbit.svg" type="image/svg+xml">
+  <link id="orbit-radial-styles" rel="stylesheet" href="/native/orbit-radial.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/designs.css">
+  <link rel="stylesheet" href="/menus.css">
+</head>
+<body>
+  <main id="pages" aria-label="Browsing area"></main>
+  <div id="gesture-layer" hidden aria-label="Gesture preview layer"></div>
+  <button id="tools-sensor" class="sensor tools-sensor" aria-label="Open Orbit tools"></button>
+  <div id="address-sensor" class="sensor address-sensor" aria-hidden="true"></div>
+  <div id="window-sensor" class="sensor window-sensor" aria-hidden="true"></div>
+  <button id="tabs-sensor" class="sensor tabs-sensor" aria-label="Switch tabs"></button>
+  <section id="address-island" class="island address-island" aria-label="Address controls" inert>
+    <button id="compact-address" class="compact-address" aria-label="Expand address bar">
+      <span class="status-dot"></span><span id="compact-title">Orbit workspace</span>
+    </button>
+    <form id="address-form" class="expanded-address" hidden>
+      <button type="button" data-command="back" aria-label="Back" title="Back">←</button>
+      <button type="button" data-command="forward" aria-label="Forward" title="Forward">→</button>
+      <input id="address-input" aria-label="Website address" placeholder="Enter a website address" autocomplete="off" spellcheck="false">
+      <button type="submit" aria-label="Go" title="Go">↗</button>
+    </form>
+    <div class="address-actions">
+      <button id="interaction-mode" data-command="gestures" class="mode-button">Design</button>
+      <button id="tab-button" title="Switch tabs · Alt+Q" aria-label="Switch tabs"><span>▦</span><span id="tab-count">1</span></button>
+      <button data-command="new-tab" title="New tab · Alt+T" aria-label="New tab">+</button>
+    </div>
+    <div id="suggestions" class="suggestions" hidden aria-label="Suggested addresses"></div>
+  </section>
+  <section id="window-island" class="island window-island" aria-label="Focus controls" inert>
+    <button data-command="pause" aria-label="Pause prototype" title="Pause prototype">−</button>
+    <button data-command="fullscreen" aria-label="Toggle browser fullscreen" title="Toggle browser fullscreen">□</button>
+    <button data-command="exit" class="window-close" aria-label="Leave focus mode" title="Leave focus mode">×</button>
+  </section>
+  <dialog id="settings" aria-labelledby="settings-title">
+    <div class="dialog-heading"><span class="eyebrow">FOCUS LAB</span><button data-command="close-settings" aria-label="Close settings">×</button></div>
+    <h2 id="settings-title">Make room for your ideas.</h2>
+    <p>Change the feel here. Your browser build stays untouched.</p>
+    <fieldset class="design-picker"><legend>UI design <span>Alt+Shift+D to compare</span></legend><div id="design-grid"></div><p id="design-description"></p></fieldset>
+    <fieldset class="menu-picker"><legend>Radial approach <span>Alt+Shift+R to compare</span></legend><div id="menu-style-options"></div><p id="menu-description"></p><button data-command="preview-menu" class="text-button">Try this menu ↗</button></fieldset>
+    <label>Appearance <select id="theme"><option value="dark">Mineral ink</option><option value="light">Moonstone</option><option value="system">Follow system</option></select></label>
+    <label>Hover reveal <select id="dwell"><option value="70">Quick · 70 ms</option><option value="140">Balanced · 140 ms</option><option value="250">Deliberate · 250 ms</option></select></label>
+    <label><span>Design interactions <small>Keep Orbit right-clicks on every page. Turn off to click and scroll external websites.</small></span><input id="gesture-toggle" type="checkbox"></label>
+    <label><span>Active tab frame</span><select id="frame-select"><option value="">Loose tabs</option><option value="Ideas">Ideas</option><option value="Reading">Reading</option><option value="Work">Work</option></select></label>
+    <button id="reset-session" class="text-button">Reset prototype tabs</button>
+    <div class="help-copy"><b>Browse without the clutter.</b><p>Top middle: address. Top left: tools. Top right: focus controls. Right edge: tabs.</p><p>Alt+L address · Alt+T new tab · Alt+Q tabs · Alt+S settings<br>Alt+Shift+D next design · Alt+Shift+R next radial approach<br>Alt+C canvas · Alt+G Design/Browse</p><p>Try a radial approach here, then cycle it while the menu is open. Your pages and canvas stay intact.</p><p>On the canvas: drag cards; N for notes, F for frames, C to connect, D to draw, Space to pan, Ctrl+Z to undo. Canvas changes are saved only in this prototype.</p><p>Design mode keeps Orbit gestures across page changes. Browse mode gives external websites their own clicks, scrolling, and context menus. Switch from the address island or Settings.</p><p>Sites that block frames are unavailable in this prototype. The address bar shows the address you opened; the simulator cannot inspect later cross-origin link navigation.</p></div>
+  </dialog>
+  <dialog id="tab-list" aria-labelledby="tab-list-title">
+    <div class="dialog-heading"><span class="eyebrow">YOUR OPEN TABS</span><button data-command="close-tab-list" aria-label="Close tab list">×</button></div>
+    <h2 id="tab-list-title">A little more perspective.</h2>
+    <div id="tab-list-items"></div>
+    <button data-command="new-tab" class="primary-button">New tab</button>
+  </dialog>
+  <div id="welcome" class="welcome">
+    <div class="welcome-card">
+      <img src="/native/orbit.svg" width="56" height="56" alt="Orbit">
+      <span class="eyebrow">ORBIT / FOCUS LAB</span>
+      <h1>Just you.<br>And the web.</h1>
+      <p>A working space for exploring Orbit’s focus mode.<br>Real pages. Multiple tabs. Controls when you need them.</p>
+      <label class="welcome-design-label">Choose a design <select id="welcome-design" aria-label="UI design"><option value="liquid">Liquid</option><option value="glass">Glass</option><option value="paper">Paper</option><option value="studio">Studio</option></select></label>
+      <button id="start-fullscreen" class="primary-button">Enter fullscreen <span>↗</span></button>
+      <button id="start-windowed" class="text-button">Explore in this window</button>
+      <span class="welcome-footnote">Touch the top edge to find your controls. Escape leaves fullscreen.</span>
+      <p id="fullscreen-message" role="status" hidden></p>
+    </div>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/app.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+/* Adapt the real canvas to the simulator's focus surface and selected theme. */
+:root {
+  color-scheme: light;
+  --orbit-text: var(--lab-ink, #26374d); --orbit-muted: var(--lab-muted, #63748a);
+  --orbit-base: var(--lab-bg, #e8edf3); --orbit-canvas: var(--lab-bg, #e8edf3);
+  --orbit-surface: var(--lab-surface, #f0f4f8); --orbit-raised: var(--lab-raised, #f8faff);
+  --orbit-line: var(--lab-line, #7890aa25); --orbit-accent-ink: var(--lab-accent, #246777);
+  --orbit-lagoon: var(--lab-accent, #246777); --orbit-highlight: var(--lab-line, #7890aa25);
+  --orbit-shadow: var(--lab-shadow, #6e829529); --orbit-deep-shadow: var(--lab-shadow, #6e829529);
+  --orbit-dot: var(--lab-line, #7890aa25); --orbit-focus: var(--lab-accent, #246777);
+}
+:root[data-theme="dark"] { color-scheme: dark; }
+.sidebar { width: 205px; margin: 38px 18px 18px; padding-top: 20px; }
+.sidebar .wordmark small, .sidebar .sidebar-bottom p, #guide-button { display: none; }
+.board-header { padding-top: 40px; }
+.board-header h1 { font-size: 30px; }
+.board-header .breadcrumb { font-size: 11px; }
+.canvas-viewport { border-radius: 24px; }
+:root[data-design="paper"] .sidebar, :root[data-design="paper"] .canvas-viewport,
+:root[data-design="paper"] .card, :root[data-design="paper"] .toolbar { border-radius: 6px; box-shadow: none; }
+:root[data-design="paper"] .board-header h1 { font-family: Georgia, serif; font-weight: 400; }
+:root[data-design="studio"] { font-family: Consolas, monospace; --orbit-raised-shadow: none; --orbit-inset-shadow: none; }
+:root[data-design="studio"] .sidebar, :root[data-design="studio"] .canvas-viewport,
+:root[data-design="studio"] .card, :root[data-design="studio"] .toolbar { border-radius: 4px; box-shadow: none; }
+@media (max-width: 850px) { .sidebar { display: none; } .board-header { padding: 42px 20px 15px; } .board-header h1 { font-size: 24px; } .board-header p, .breadcrumb { display: none; } }
